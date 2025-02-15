@@ -13,7 +13,9 @@ public class Artist {
     private long id;
 
     private String name;
+    private long debutYear;
     private String genre;
+    private String country;
 
     @OneToMany // An artist can have many albums
     private List<Album> albums;

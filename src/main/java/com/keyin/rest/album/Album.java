@@ -13,17 +13,19 @@ public class Album {
     @GeneratedValue(generator = "album_sequence")
     private long id;
 
-    private String name;
-    private int releaseYear;
-
+    private String title;
     @ManyToOne // An artist may have many albums, but an album only has 1 artist
     private Artist artist;
+    private int releaseYear;
+    private int numberOfSongs;
+    private String genre;
+
 
     @ManyToMany // Songs can appear in multiple albums
              //  & Albums can contain multiple songs
     // **Opt to add @JoinTable for more constraint control**
     private List<Song> songs;
 
-
-
+//    @OneToMany
+//    private Song song;
 }
