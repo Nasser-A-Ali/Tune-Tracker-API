@@ -13,15 +13,13 @@ public class Song {
     @GeneratedValue(generator = "song_sequence")
     private long id;
 
-    private String title;
+    private String name;
     private String genre;
     private int duration;
     private LocalDate releaseDate;
 
     @ManyToMany // A song can exist in many albums (ex. singles & full albums)
-            //   & an album can have many sounds
+    // & an album can have many sounds
     private List<Album> albums;
-
-
 
 }
