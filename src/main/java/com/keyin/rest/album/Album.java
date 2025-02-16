@@ -22,10 +22,68 @@ public class Album {
 
 
     @ManyToMany // Songs can appear in multiple albums
-             //  & Albums can contain multiple songs
+             //  & Albums can contain multiple Songs
     // **Opt to add @JoinTable for more constraint control**
-    private List<Song> songs;
+    private List<Song> listOfSongs;
 
-//    @OneToMany
-//    private Song song;
+    // Alternative approach
+    // @OneToMany
+    // private Song Album;
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public int getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public int getNumberOfSongs() {
+        return numberOfSongs;
+    }
+
+    public void setNumberOfSongs(int numberOfSongs) {
+        this.numberOfSongs = numberOfSongs;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public List<Song> getListOfSongs() {
+        return listOfSongs;
+    }
+
+    public void setListOfSongs(List<Song> listOfSongs) {
+        this.listOfSongs = listOfSongs;
+    }
 }
