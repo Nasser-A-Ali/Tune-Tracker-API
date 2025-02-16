@@ -13,7 +13,7 @@ public class Artist {
     private long id;
 
     private String name;
-    private long debutYear;
+    private int debutYear;
     private String genre;
     private String country;
 
@@ -21,6 +21,51 @@ public class Artist {
     private List<Album> albums;
 
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getDebutYear() {
+        return debutYear;
+    }
+
+    public void setDebutYear(int debutYear) {
+        this.debutYear = debutYear;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
 }

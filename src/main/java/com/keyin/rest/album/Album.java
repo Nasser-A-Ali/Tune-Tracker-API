@@ -3,6 +3,7 @@ package com.keyin.rest.album;
 import com.keyin.rest.artist.Artist;
 import com.keyin.rest.song.Song;
 import jakarta.persistence.*;
+
 import java.util.List;
 
 
@@ -23,6 +24,7 @@ public class Album {
 
     @ManyToMany // Songs can appear in multiple albums
              //  & Albums can contain multiple Songs
+
     // **Opt to add @JoinTable for more constraint control**
     private List<Song> listOfSongs;
 
