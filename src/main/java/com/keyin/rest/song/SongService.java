@@ -1,7 +1,5 @@
 package com.keyin.rest.song;
 
-import com.keyin.rest.album.Album;
-import jakarta.persistence.ManyToMany;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,30 +11,44 @@ public class SongService {
     @Autowired
     private SongRepository songRepository;
 
-    public List<Song> getAllSongs(){return (List<Song>) songRepository.findAll();}
+    public List<Song> getAllSongs() {
+        return (List<Song>) songRepository.findAll();
+    }
 
-    public Song getSongById(long id){
+    public Song getSongById(long id) {
         Optional<Song> songOptional = songRepository.findById(id);
 
         return songOptional.orElse(null);
     }
 
-    public Song getSongByTitle(String title){return songRepository.findByTitle(title);}
-    public Song getSongByArtistId(long artistId){return songRepository.findByArtistId(artistId);}
-    public Song getSongByGenre(String genre){return songRepository.findByGenre(genre);}
+    public Song getSongByTitle(String title) {
+        return songRepository.findByTitle(title);
+    }
 
-    public void deleteSongById(long id){songRepository.deleteById(id);}
+    public Song getSongByArtistId(long artistId) {
+        return songRepository.findByArtistId(artistId);
+    }
 
-    public Song createSong(Song newSong){return songRepository.save(newSong);}
+    public Song getSongByGenre(String genre) {
+        return songRepository.findByGenre(genre);
+    }
 
-    public Song updateSong(long id, Song updatedSong){
+    public void deleteSongById(long id) {
+        songRepository.deleteById(id);
+    }
+
+    public Song createSong(Song newSong) {
+        return songRepository.save(newSong);
+    }
+
+    public Song updateSong(long id, Song updatedSong) {
         Optional<Song> songToUpdateOptional = songRepository.findById(id);
 
-        if (songToUpdateOptional.isPresent()){
+        if (songToUpdateOptional.isPresent()) {
             Song songToUpdate = songToUpdateOptional.get();
 
             songToUpdate.setTitle(updatedSong.getTitle());
-            songToUpdate.setArtistId(updatedSong.getArtistId());
+            songToUpdate.setArtist(updatedSong.getArtist());
             songToUpdate.setGenre(updatedSong.getGenre());
             songToUpdate.setDuration(updatedSong.getDuration());
             songToUpdate.setReleaseDate(updatedSong.getReleaseDate());

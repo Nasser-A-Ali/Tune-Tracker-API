@@ -1,8 +1,12 @@
 package com.keyin.rest.artist;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.keyin.rest.album.Album;
+import com.keyin.rest.song.Song;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,8 +21,13 @@ public class Artist {
     private String genre;
     private String country;
 
-    @OneToMany // An artist can have many albums
-    private List<Album> albums;
+    @OneToMany(mappedBy = "artist", cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // An artist can have many albums
+    @JsonIgnore
+    private List<Album> albums = new ArrayList<>();
+
+    @OneToMany(mappedBy = "artist", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
+    private List<Song> songs = new ArrayList<>();
 
 
     public long getId() {
@@ -67,5 +76,13 @@ public class Artist {
 
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
+    }
+
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
     }
 }
