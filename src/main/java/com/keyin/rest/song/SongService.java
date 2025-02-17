@@ -21,17 +21,22 @@ public class SongService {
         return songOptional.orElse(null);
     }
 
-    public Song getSongByTitle(String title) {
+    public List<Song> getSongByTitle(String title) {
         return songRepository.findByTitle(title);
     }
 
-    public Song getSongByArtistId(long artistId) {
+    public List<Song> getSongByGenre(String genre) {
+        return songRepository.findByGenre(genre);
+    }
+
+    public List<Song> getSongByReleaseYear(int releaseYear) {
+        return songRepository.findByReleaseYear(releaseYear);
+    }
+
+    public List<Song> getSongByArtistId(long artistId) {
         return songRepository.findByArtistId(artistId);
     }
 
-    public Song getSongByGenre(String genre) {
-        return songRepository.findByGenre(genre);
-    }
 
     public void deleteSongById(long id) {
         songRepository.deleteById(id);
@@ -51,7 +56,7 @@ public class SongService {
             songToUpdate.setArtist(updatedSong.getArtist());
             songToUpdate.setGenre(updatedSong.getGenre());
             songToUpdate.setDuration(updatedSong.getDuration());
-            songToUpdate.setReleaseDate(updatedSong.getReleaseDate());
+            songToUpdate.setReleaseYear(updatedSong.getReleaseYear());
             songToUpdate.setAlbums(updatedSong.getAlbums());
 
             return songRepository.save(songToUpdate);
