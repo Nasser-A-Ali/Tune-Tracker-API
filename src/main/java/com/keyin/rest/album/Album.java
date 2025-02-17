@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-
 @Entity
 public class Album {
     @Id
@@ -15,23 +14,20 @@ public class Album {
     private long id;
 
     private String title;
-    @ManyToOne // An artist may have many albums, but an album only has 1 artist
-    private Artist artist;
     private int releaseYear;
     private int numberOfSongs;
     private String genre;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    // An artist may have many albums, but an album only has 1 artist
+    @JoinColumn(name = "artist_id", nullable = false)
+    private Artist artist;
 
     @ManyToMany // Songs can appear in multiple albums
-             //  & Albums can contain multiple Songs
-
+    // & Albums can contain multiple Songs
     // **Opt to add @JoinTable for more constraint control**
+    @JoinTable(name = "album_song", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
     private List<Song> listOfSongs;
-
-    // Alternative approach
-    // @OneToMany
-    // private Song Album;
-
 
     public long getId() {
         return id;

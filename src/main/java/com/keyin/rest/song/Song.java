@@ -1,9 +1,10 @@
 package com.keyin.rest.song;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.keyin.rest.album.Album;
+import com.keyin.rest.artist.Artist;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,13 +15,19 @@ public class Song {
     private long id;
 
     private String title;
-    private long artistId;
     private String genre;
     private int duration;
     private String releaseDate;
 
-    @ManyToMany // A song can exist in many albums (ex. singles & full albums)
+    @ManyToOne
+    @JoinColumn(name = "artist_id", nullable = false)
+    private Artist artist;
+
+
+    // A song can exist in many albums (ex. singles & full albums)
     // & an album can have many sounds
+    @ManyToMany(mappedBy = "listOfSongs")
+    @JsonIgnore  // Prevents infinite loops
     private List<Album> albums;
 
     public long getId() {
@@ -39,12 +46,12 @@ public class Song {
         this.title = title;
     }
 
-    public long getArtistId() {
-        return artistId;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setArtistId(long artistId) {
-        this.artistId = artistId;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
     public String getGenre() {
