@@ -21,11 +21,11 @@ public class Artist {
     private String genre;
     private String country;
 
-    @OneToMany(mappedBy = "artist") // An artist can have many albums
-    @JsonIgnore // Prevents infinite loops
+    @OneToMany(mappedBy = "artist", cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // An artist can have many albums
+    @JsonIgnore
     private List<Album> albums = new ArrayList<>();
 
-    @OneToMany(mappedBy = "artist", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "artist", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     private List<Song> songs = new ArrayList<>();
 
@@ -76,5 +76,13 @@ public class Artist {
 
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
+    }
+
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
     }
 }

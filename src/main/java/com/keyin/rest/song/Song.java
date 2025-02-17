@@ -27,7 +27,7 @@ public class Song {
     // A song can exist in many albums (ex. singles & full albums)
     // & an album can have many sounds
     @ManyToMany(mappedBy = "listOfSongs")
-    @JsonIgnore  // Prevents infinite loops
+    @JsonIgnore
     private List<Album> albums;
 
     public long getId() {

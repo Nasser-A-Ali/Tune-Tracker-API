@@ -18,17 +18,19 @@ public class Album {
     private int numberOfSongs;
     private String genre;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    // An artist may have many albums, but an album only has 1 artist
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "artist_id", nullable = false)
     private Artist artist;
 
-    @ManyToMany // Songs can appear in multiple albums
-    // & Albums can contain multiple Songs
-    // **Opt to add @JoinTable for more constraint control**
-    @JoinTable(name = "album_song", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
+    @ManyToMany
+    @JoinTable(
+            name = "album_song",
+            joinColumns = @JoinColumn(name = "album_id"),
+            inverseJoinColumns = @JoinColumn(name = "song_id")
+    )
     private List<Song> listOfSongs;
 
+    // Getters and Setters
     public long getId() {
         return id;
     }
