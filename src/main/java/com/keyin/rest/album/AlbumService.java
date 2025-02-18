@@ -26,7 +26,10 @@ public class AlbumService {
 
     public void deleteAlbumById(long id){AlbumRepository.deleteById(id);}
 
-    public Album createAlbum(Album newAlbum){return AlbumRepository.save(newAlbum);}
+    public Album createAlbum(Album newAlbum){
+
+        return AlbumRepository.save(newAlbum);
+    }
 
     public Album updateAlbum(long id, Album updatedAlbum){
         Optional<Album> AlbumToUpdateOptional = AlbumRepository.findById(id);
