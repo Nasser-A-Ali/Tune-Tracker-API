@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,19 +17,21 @@ public class SongController {
     public List<Song> getAllSongs(){return songService.getAllSongs();}
 
     @GetMapping("/song_search")
-    public Song getSongByTitle(@RequestParam(value = "title", required = false) String title, @RequestParam (value = "artist_id", required = false) Long artistId, @RequestParam (value = "genre", required = false) String genre){
+    public List<Song> getSongByTitle(@RequestParam(value = "title", required = false) String title, @RequestParam (value = "genre", required = false) String genre, @RequestParam (value = "release_year", required = false) Integer releaseYear, @RequestParam (value = "artist_id", required = false) Long artistId){
 
-        Song song = new Song();
+        List<Song> listOfSongs = new ArrayList<>();
 
         if (title != null) {
-            song = songService.getSongByTitle(title);
-        } else if (artistId != null) {
-            song = songService.getSongByArtistId(artistId);
+            listOfSongs = songService.getSongByTitle(title);
         } else if (genre != null) {
-            song = songService.getSongByGenre(genre);
+            listOfSongs = songService.getSongByGenre(genre);
+        } else if (releaseYear != null) {
+            listOfSongs = songService.getSongByReleaseYear(releaseYear);
+        } else if (artistId != null) {
+            listOfSongs = songService.getSongByArtistId(artistId);
         }
 
-        return song;
+        return listOfSongs;
     }
 
     @GetMapping("/song/{id}")

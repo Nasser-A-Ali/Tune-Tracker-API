@@ -17,7 +17,7 @@ public class Song {
     private String title;
     private String genre;
     private int duration;
-    private String releaseDate;
+    private int releaseYear;
 
     @ManyToOne
     @JoinColumn(name = "artist_id", nullable = false)
@@ -70,12 +70,12 @@ public class Song {
         this.duration = duration;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public int getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
     }
 
     public List<Album> getAlbums() {
