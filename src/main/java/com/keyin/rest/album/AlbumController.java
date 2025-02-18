@@ -54,7 +54,10 @@ public class AlbumController {
 
         if (artist == null) {
             throw new RuntimeException("Artist not found with ID: " + album.getArtist().getId());
+        } else if (album.getNumberOfSongs() != album.getListOfSongs().toArray().length) {
+            throw new RuntimeException("Number of songs in 'listOfSongs' must match the number of songs. Expected: " + album.getNumberOfSongs() + ". Provided: " + album.getListOfSongs().toArray().length);
         }
+
         album.setArtist(artist);
 
         return albumService.createAlbum(album);
