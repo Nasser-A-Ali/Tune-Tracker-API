@@ -1,9 +1,12 @@
 package com.keyin.rest.artist;
 
 
+import com.keyin.rest.song.Song;
+import com.keyin.rest.song.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +14,8 @@ import java.util.Optional;
 public class ArtistService {
     @Autowired
     private ArtistRepository artistRepository;
+    @Autowired
+    private SongRepository songRepository;
 
 
     // Create
@@ -29,7 +34,18 @@ public class ArtistService {
         return artistRepository.findByName(name);
     }
 
-    public List<Artist> findAll(){
+    public List<Artist> findBySongTitle(String title) {
+        List<Song> songs = songRepository.findByTitle(title);
+
+        List<Artist> artists = new ArrayList<>();
+        for (Song song : songs) {
+            artists.add(song.getArtist());
+        }
+        return artists;
+    }
+
+
+    public List<Artist> findAll() {
         return (List<Artist>) artistRepository.findAll();
     }
 
@@ -50,7 +66,7 @@ public class ArtistService {
     public Artist updateArtist(long id, Artist updatedArtist) {
         Optional<Artist> artistToUpdateOptional = artistRepository.findById(id);
 
-        if(artistToUpdateOptional.isPresent()) {
+        if (artistToUpdateOptional.isPresent()) {
             Artist artistToUpdate = artistToUpdateOptional.get();
             artistToUpdate.setName(updatedArtist.getName());
             artistToUpdate.setDebutYear(updatedArtist.getDebutYear());
