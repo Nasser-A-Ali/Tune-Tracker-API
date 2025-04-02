@@ -1,4 +1,7 @@
 FROM eclipse-temurin:17-jre
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+
+WORKDIR /app
+
+COPY target/Tune-Tracker-API-1.0-SNAPSHOT.jar app.jar
+
+CMD ["java", "-jar", "app.jar"]
