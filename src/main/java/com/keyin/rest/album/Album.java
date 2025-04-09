@@ -4,6 +4,7 @@ import com.keyin.rest.artist.Artist;
 import com.keyin.rest.song.Song;
 import jakarta.persistence.*;
 
+
 import java.util.List;
 
 @Entity
@@ -15,9 +16,9 @@ public class Album {
 
     private String title;
     private int releaseYear;
-    private int numberOfSongs;
     private String genre;
 
+    
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "artist_id", nullable = false)
     private Artist artist;
@@ -61,14 +62,6 @@ public class Album {
 
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
-    }
-
-    public int getNumberOfSongs() {
-        return numberOfSongs;
-    }
-
-    public void setNumberOfSongs(int numberOfSongs) {
-        this.numberOfSongs = numberOfSongs;
     }
 
     public String getGenre() {
