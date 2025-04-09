@@ -3,6 +3,7 @@ package com.keyin.rest.album;
 import com.keyin.rest.artist.Artist;
 import com.keyin.rest.song.Song;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class Album {
 
     
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore 
     @JoinColumn(name = "artist_id", nullable = false)
     private Artist artist;
 
