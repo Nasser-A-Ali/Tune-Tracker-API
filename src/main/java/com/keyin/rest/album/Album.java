@@ -4,7 +4,7 @@ import com.keyin.rest.artist.Artist;
 import com.keyin.rest.song.Song;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
@@ -19,18 +19,13 @@ public class Album {
     private int releaseYear;
     private String genre;
 
-    
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonIgnore 
+    @ManyToOne
     @JoinColumn(name = "artist_id", nullable = false)
+    @JsonIgnoreProperties({ "albums", "songs" })
     private Artist artist;
 
     @ManyToMany
-    @JoinTable(
-            name = "album_song",
-            joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "song_id")
-    )
+    @JoinTable(name = "album_song", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
     private List<Song> listOfSongs;
 
     // Getters and Setters
