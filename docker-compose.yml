@@ -1,30 +1,16 @@
 services:
-  mysql:
-    image: mysql:8.0
-    platform: linux/amd64
-    container_name: tune_tracker_db
-    environment:
-      MYSQL_ROOT_PASSWORD: Keyin2025
-      MYSQL_DATABASE: tune_tracker
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pKeyin2025"]
-      interval: 5s
-      timeout: 10s
-      retries: 5
-
   app:
     build: .
     container_name: tune_tracker_api
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/tune_tracker?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://tune-tracker-db.carvvf7xw1zj.us-east-1.rds.amazonaws.com/tune-tracker-db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=Keyin2025
     ports:
       - "8080:8080"
-    depends_on:
-      - mysql
 
-volumes:
-  mysql_data:
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5

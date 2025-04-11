@@ -57,8 +57,9 @@ public class AlbumService {
             albumToUpdate
                     .setArtist(updatedAlbum.getArtist() != null ? updatedAlbum.getArtist() : albumToUpdate.getArtist());
                     
-            albumToUpdate.setReleaseYear(updatedAlbum.getReleaseYear() <= 0 ? updatedAlbum.getReleaseYear()
+            albumToUpdate.setReleaseYear(updatedAlbum.getReleaseYear() >= 0 ? updatedAlbum.getReleaseYear()
                     : albumToUpdate.getReleaseYear());
+
             albumToUpdate
                     .setGenre(updatedAlbum.getGenre() != null ? updatedAlbum.getGenre() : albumToUpdate.getGenre());
 
