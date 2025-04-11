@@ -49,19 +49,36 @@ public class ArtistService {
     // Update
     public Artist updateArtist(long id, Artist updatedArtist) {
         Optional<Artist> artistToUpdateOptional = artistRepository.findById(id);
-
-        if(artistToUpdateOptional.isPresent()) {
+    
+        if (artistToUpdateOptional.isPresent()) {
             Artist artistToUpdate = artistToUpdateOptional.get();
-            artistToUpdate.setName(updatedArtist.getName());
-            artistToUpdate.setDebutYear(updatedArtist.getDebutYear());
-            artistToUpdate.setGenre(updatedArtist.getGenre());
-            artistToUpdate.setCountry(updatedArtist.getCountry());
+    
+            artistToUpdate.setName(
+                    updatedArtist.getName() != null && !updatedArtist.getName().isBlank()
+                            ? updatedArtist.getName()
+                            : artistToUpdate.getName());
+    
+            artistToUpdate.setDebutYear(
+                    updatedArtist.getDebutYear() > 0
+                            ? updatedArtist.getDebutYear()
+                            : artistToUpdate.getDebutYear());
+    
+            artistToUpdate.setGenre(
+                    updatedArtist.getGenre() != null && !updatedArtist.getGenre().isBlank()
+                            ? updatedArtist.getGenre()
+                            : artistToUpdate.getGenre());
+    
+            artistToUpdate.setCountry(
+                    updatedArtist.getCountry() != null && !updatedArtist.getCountry().isBlank()
+                            ? updatedArtist.getCountry()
+                            : artistToUpdate.getCountry());
+    
             return artistRepository.save(artistToUpdate);
         }
+    
         return null;
-
     }
-
+    
     // Delete
     public void deleteArtistById(long id) {
         artistRepository.deleteById(id);

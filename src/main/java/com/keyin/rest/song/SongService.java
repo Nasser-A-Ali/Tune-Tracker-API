@@ -37,7 +37,6 @@ public class SongService {
         return songRepository.findByArtistId(artistId);
     }
 
-
     public void deleteSongById(long id) {
         songRepository.deleteById(id);
     }
@@ -52,16 +51,39 @@ public class SongService {
         if (songToUpdateOptional.isPresent()) {
             Song songToUpdate = songToUpdateOptional.get();
 
-            songToUpdate.setTitle(updatedSong.getTitle());
-            songToUpdate.setArtist(updatedSong.getArtist());
-            songToUpdate.setGenre(updatedSong.getGenre());
-            songToUpdate.setDuration(updatedSong.getDuration());
-            songToUpdate.setReleaseYear(updatedSong.getReleaseYear());
-            songToUpdate.setAlbums(updatedSong.getAlbums());
+            songToUpdate.setTitle(
+                    updatedSong.getTitle() != null && !updatedSong.getTitle().isBlank()
+                            ? updatedSong.getTitle()
+                            : songToUpdate.getTitle());
+
+            songToUpdate.setArtist(
+                    updatedSong.getArtist() != null
+                            ? updatedSong.getArtist()
+                            : songToUpdate.getArtist());
+
+            songToUpdate.setGenre(
+                    updatedSong.getGenre() != null && !updatedSong.getGenre().isBlank()
+                            ? updatedSong.getGenre()
+                            : songToUpdate.getGenre());
+
+            songToUpdate.setDuration(
+                    updatedSong.getDuration() > 0
+                            ? updatedSong.getDuration()
+                            : songToUpdate.getDuration());
+
+            songToUpdate.setReleaseYear(
+                    updatedSong.getReleaseYear() > 0
+                            ? updatedSong.getReleaseYear()
+                            : songToUpdate.getReleaseYear());
+
+            if (updatedSong.getAlbums() != null) {
+                songToUpdate.setAlbums(updatedSong.getAlbums());
+            }
 
             return songRepository.save(songToUpdate);
         }
 
         return null;
     }
+
 }

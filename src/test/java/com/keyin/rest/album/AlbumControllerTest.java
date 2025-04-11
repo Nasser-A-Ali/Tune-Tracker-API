@@ -57,7 +57,6 @@ class AlbumControllerTest {
         testAlbum.setReleaseYear(2020);
         testAlbum.setGenre("Rock");
         testAlbum.setArtist(testArtist);
-        testAlbum.setNumberOfSongs(1);
         testAlbum.setListOfSongs(Arrays.asList(testSong));
     }
 

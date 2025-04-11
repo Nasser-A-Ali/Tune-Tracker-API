@@ -8,43 +8,65 @@ import java.util.Optional;
 
 @Service
 public class AlbumService {
+
     @Autowired
-    private AlbumRepository AlbumRepository;
+    private AlbumRepository albumRepository;
 
-    public List<Album> getAllAlbums(){return (List<Album>) AlbumRepository.findAll();}
-
-    public Album getAlbumById(long id){
-        Optional<Album> AlbumOptional = AlbumRepository.findById(id);
-
-        return AlbumOptional.orElse(null);
+    public List<Album> getAllAlbums() {
+        return (List<Album>) albumRepository.findAll();
     }
 
-    public List<Album> getAlbumByTitle(String title){return AlbumRepository.findByTitle(title);}
-    public List<Album> getAlbumByArtistId(long artistId){return AlbumRepository.findByArtistId(artistId);}
-    public List<Album> getAlbumByReleaseYear(int releaseYear){return AlbumRepository.findByReleaseYear(releaseYear);}
-    public List<Album> getAlbumByGenre(String genre){return AlbumRepository.findByGenre(genre);}
-
-    public void deleteAlbumById(long id){AlbumRepository.deleteById(id);}
-
-    public Album createAlbum(Album newAlbum){
-
-        return AlbumRepository.save(newAlbum);
+    public Album getAlbumById(long id) {
+        Optional<Album> albumOptional = albumRepository.findById(id);
+        return albumOptional.orElse(null);
     }
 
-    public Album updateAlbum(long id, Album updatedAlbum){
-        Optional<Album> AlbumToUpdateOptional = AlbumRepository.findById(id);
+    public List<Album> getAlbumByTitle(String title) {
+        return albumRepository.findByTitle(title);
+    }
 
-        if (AlbumToUpdateOptional.isPresent()){
-            Album AlbumToUpdate = AlbumToUpdateOptional.get();
+    public List<Album> getAlbumByArtistId(long artistId) {
+        return albumRepository.findByArtistId(artistId);
+    }
 
-            AlbumToUpdate.setTitle(updatedAlbum.getTitle());
-            AlbumToUpdate.setArtist(updatedAlbum.getArtist());
-            AlbumToUpdate.setReleaseYear(updatedAlbum.getReleaseYear());
-            AlbumToUpdate.setNumberOfSongs(updatedAlbum.getNumberOfSongs());
-            AlbumToUpdate.setGenre(updatedAlbum.getGenre());
-            AlbumToUpdate.setListOfSongs(updatedAlbum.getListOfSongs());
+    public List<Album> getAlbumByReleaseYear(int releaseYear) {
+        return albumRepository.findByReleaseYear(releaseYear);
+    }
 
-            return AlbumRepository.save(AlbumToUpdate);
+    public List<Album> getAlbumByGenre(String genre) {
+        return albumRepository.findByGenre(genre);
+    }
+
+    public void deleteAlbumById(long id) {
+        albumRepository.deleteById(id);
+    }
+
+    public Album createAlbum(Album newAlbum) {
+        return albumRepository.save(newAlbum);
+    }
+
+    public Album updateAlbum(long id, Album updatedAlbum) {
+        Optional<Album> albumToUpdateOptional = albumRepository.findById(id);
+
+        if (albumToUpdateOptional.isPresent()) {
+            Album albumToUpdate = albumToUpdateOptional.get();
+
+            // Keep existing fields if not provided in the request
+            albumToUpdate
+                    .setTitle(updatedAlbum.getTitle() != null ? updatedAlbum.getTitle() : albumToUpdate.getTitle());
+            albumToUpdate
+                    .setArtist(updatedAlbum.getArtist() != null ? updatedAlbum.getArtist() : albumToUpdate.getArtist());
+                    
+            albumToUpdate.setReleaseYear(updatedAlbum.getReleaseYear() >= 0 ? updatedAlbum.getReleaseYear()
+                    : albumToUpdate.getReleaseYear());
+
+            albumToUpdate
+                    .setGenre(updatedAlbum.getGenre() != null ? updatedAlbum.getGenre() : albumToUpdate.getGenre());
+
+            if (updatedAlbum.getListOfSongs() != null) {
+                albumToUpdate.setListOfSongs(updatedAlbum.getListOfSongs());
+            }
+            return albumRepository.save(albumToUpdate);
         }
 
         return null;

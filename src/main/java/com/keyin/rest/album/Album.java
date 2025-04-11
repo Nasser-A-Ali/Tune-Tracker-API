@@ -3,6 +3,8 @@ package com.keyin.rest.album;
 import com.keyin.rest.artist.Artist;
 import com.keyin.rest.song.Song;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
@@ -15,19 +17,15 @@ public class Album {
 
     private String title;
     private int releaseYear;
-    private int numberOfSongs;
     private String genre;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "artist_id", nullable = false)
+    @JsonIgnoreProperties({ "albums", "songs" })
     private Artist artist;
 
     @ManyToMany
-    @JoinTable(
-            name = "album_song",
-            joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "song_id")
-    )
+    @JoinTable(name = "album_song", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
     private List<Song> listOfSongs;
 
     // Getters and Setters
@@ -61,14 +59,6 @@ public class Album {
 
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
-    }
-
-    public int getNumberOfSongs() {
-        return numberOfSongs;
-    }
-
-    public void setNumberOfSongs(int numberOfSongs) {
-        this.numberOfSongs = numberOfSongs;
     }
 
     public String getGenre() {
