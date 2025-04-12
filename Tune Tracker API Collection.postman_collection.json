@@ -1,0 +1,466 @@
+{
+	"info": {
+		"_postman_id": "58b04059-fcdb-4364-9661-62ff5d952dec",
+		"name": "Tune Tracker API Collection",
+		"description": "Collection for the Tune Tracker API endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34201831"
+	},
+	"item": [
+		{
+			"name": "Artists",
+			"item": [
+				{
+					"name": "Get All Artists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/artists",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"artists"
+							]
+						},
+						"description": "Retrieve all artists"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/artist/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"artist",
+								"1"
+							]
+						},
+						"description": "Retrieve a specific artist by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Artists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/artist_search?song_title=Song 1&genre=Genre",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"artist_search"
+							],
+							"query": [
+								{
+									"key": "song_title",
+									"value": "Song 1"
+								},
+								{
+									"key": "genre",
+									"value": "Genre"
+								}
+							]
+						},
+						"description": "Search artists by various criteria"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Artist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Artist 1\",\n    \"genre\": \"Genre\",\n    \"debutYear\": 1990,\n    \"country\": \"Canada\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/artist",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"artist"
+							]
+						},
+						"description": "Create a new artist"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Artist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Artist 1\",\n    \"genre\": \"Genre\",\n    \"debutYear\": 1990,\n    \"country\": \"Canada\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/artist/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"artist",
+								"1"
+							]
+						},
+						"description": "Update an existing artist"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Artist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/artist/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"artist",
+								"1"
+							]
+						},
+						"description": "Delete an artist by ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "Get All Albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/albums",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"albums"
+							]
+						},
+						"description": "Retrieve all albums"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Album by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/album/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"album",
+								"1"
+							]
+						},
+						"description": "Retrieve a specific album by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/album_search?title=Album 1&release_year=2024&genre=Genre&artist_id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"album_search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Album 1"
+								},
+								{
+									"key": "release_year",
+									"value": "2024"
+								},
+								{
+									"key": "genre",
+									"value": "Genre"
+								},
+								{
+									"key": "artist_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Search albums by various criteria"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Album",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Album 1\",\n    \"releaseYear\": 2024,\n    \"genre\": \"Genre\",\n    \"numberOfSongs\": 2,\n    \"artist\": {\n        \"id\": 1\n    },\n    \"listOfSongs\": [\n        {\n            \"id\" : 1\n        },\n        {\n            \"id\" : 2\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/album",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"album"
+							]
+						},
+						"description": "Create a new album"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Album",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Album 1\",\n    \"releaseYear\": 2024,\n    \"genre\": \"Genre\",\n    \"numberOfSongs\": 2,\n    \"artist\": {\n        \"id\": 1\n    },\n    \"listOfSongs\": [\n        {\n            \"title\": \"Song 1\",\n            \"genre\": \"Genre\",\n            \"duration\": 180,\n            \"releaseYear\": 2024,\n            \"artist\": {\n                \"id\": 1\n            }\n        },\n        {\n            \"title\": \"Song 2\",\n            \"genre\": \"Genre\",\n            \"duration\": 200,\n            \"releaseYear\": 2024,\n            \"artist\": {\n                \"id\": 1\n            }\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/album/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"album",
+								"1"
+							]
+						},
+						"description": "Update an existing album"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Album",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/album/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"album",
+								"1"
+							]
+						},
+						"description": "Delete an album by ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Songs",
+			"item": [
+				{
+					"name": "Get All Songs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/songs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"songs"
+							]
+						},
+						"description": "Retrieve all songs"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Song by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/song/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"song",
+								"1"
+							]
+						},
+						"description": "Retrieve a specific song by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Songs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/song_search?title=Song 1&genre=Genre&release_year=2024&artist_id=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"song_search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Song 1"
+								},
+								{
+									"key": "genre",
+									"value": "Genre"
+								},
+								{
+									"key": "release_year",
+									"value": "2024"
+								},
+								{
+									"key": "artist_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Search songs by various criteria"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Song",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Song 1\",\n    \"genre\": \"Genre\",\n    \"duration\": 180,\n    \"releaseYear\": 2024,\n    \"artist\": {\n        \"id\": 1\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/song",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"song"
+							]
+						},
+						"description": "Create a new song"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Song",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Song 1\",\n    \"genre\": \"Genre\",\n    \"duration\": 180,\n    \"releaseYear\": 2024,\n    \"artist\": {\n        \"id\": 1\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/song/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"song",
+								"1"
+							]
+						},
+						"description": "Update an existing song"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Song",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/song/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"song",
+								"1"
+							]
+						},
+						"description": "Delete a song by ID"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://34.235.166.184:80",
+			"type": "string"
+		}
+	]
+}
